@@ -5,13 +5,19 @@ from app.api.v1.api import api_router
 from app.core.config import settings
 from app.db.session import database
 
-app = FastAPI(title=settings.PROJECT_NAME, version=settings.PROJECT_VERSION, servers=[
-        {"url": "https://myapp-383194447870.europe-west9.run.app", "description": "Production server"}
-    ])
-app.add_middleware(HTTPSRedirectMiddleware)
+servers = [
+    {"url": settings.FRONT_BASE_URL, "description": f"{settings.ENVIRONMENT.capitalize()} server"}
+]
+
+app = FastAPI(
+    title=settings.PROJECT_NAME,
+    version=settings.PROJECT_VERSION,
+    servers=servers
+)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], # vous pouvez spécifier "*" pour tout autoriser
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

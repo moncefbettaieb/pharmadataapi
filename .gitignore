@@ -8,3 +8,5 @@ app/utils/__pycache__/*
 app/scripts/__pycache__/*
 app/tests/__pycache__/*
 env
+.env*
+.DS_Store

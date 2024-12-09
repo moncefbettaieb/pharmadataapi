@@ -17,5 +17,7 @@ COPY . .
 # Exposer le port par défaut pour Uvicorn
 EXPOSE 8080
 
+ENV DATABASE_URL="postgresql://myuser:mypassword@localhost:5432/pharma_go_api"
+
 # Commande de lancement de l'application
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--proxy-headers"]
