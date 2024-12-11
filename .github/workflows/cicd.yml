@@ -24,6 +24,10 @@ jobs:
         pip install -r requirements.txt
 
     - name: Run Tests
+      env:
+        FRONT_BASE_URL: ${{ secrets.FRONT_BASE_URL }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        ENVIRONMENT: "staging"
       run: |
         source env/bin/activate
         pytest --maxfail=5 --disable-warnings
