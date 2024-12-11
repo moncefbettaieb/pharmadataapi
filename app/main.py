@@ -1,9 +1,16 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from starlette.middleware.httpsredirect import HTTPSRedirectMiddleware
+from contextlib import asynccontextmanager
 from app.api.v1.api import api_router
 from app.core.config import settings
 from app.db.session import database
+import logging
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await database.connect()
+    yield
+    await database.disconnect()
 
 servers = [
     {"url": settings.FRONT_BASE_URL, "description": f"{settings.ENVIRONMENT.capitalize()} server"}
@@ -12,7 +19,8 @@ servers = [
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.PROJECT_VERSION,
-    servers=servers
+    servers=servers,
+    lifespan=lifespan
 )
 
 app.add_middleware(
