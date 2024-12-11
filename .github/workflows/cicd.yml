@@ -10,7 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+        
+    - name: Install dependencies
+      run: |
+        python -m venv env
+        source env/bin/activate
+        pip install -r requirements.txt
+
+    - name: Run Tests
+      run: |
+        source env/bin/activate
+        pytest --maxfail=5 --disable-warnings
 
     - name: Authenticate with GCP
       uses: google-github-actions/auth@v1
