@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Pharma Data API"
     PROJECT_VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
-    SECRET_KEY: str = "CHANGE_ME"  # A changer en production
+    SECRET_KEY: str = "CHANGE_ME"  #TODO A changer en production
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     ENVIRONMENT: str = os.getenv("ENVIRONMENT")

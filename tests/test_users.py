@@ -36,3 +36,5 @@ def test_create_user_already_exists(mock_execute, mock_fetch_one):
     # Vérifiez que le code HTTP est 400
     assert response.status_code == 400
     assert response.json() == {"detail": "User already exists"}
+
+    #TODO add unit test for getme
