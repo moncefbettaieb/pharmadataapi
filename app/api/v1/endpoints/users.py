@@ -5,8 +5,6 @@ from app.db.models.user import users as user_table
 from app.utils.hashing import get_password_hash
 from app.api.dependencies import get_current_user
 
-print(f"Using get_current_user from: {get_current_user}")
-
 router = APIRouter()
 
 @router.post("/", response_model=UserOut)
@@ -29,7 +27,4 @@ async def create_user(user: UserCreate):
 
 @router.get("/me", response_model=UserOut)
 async def get_me(current_user=Depends(get_current_user)):
-    print(f"Token reçu dans get_current_user : {token}")
-    print("get_me endpoint called")
-    print(f"get_current_user: {get_current_user}")
     return UserOut(**current_user)
